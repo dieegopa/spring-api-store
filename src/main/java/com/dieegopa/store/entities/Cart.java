@@ -9,7 +9,6 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
 import java.util.Set;
-import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,7 +21,7 @@ public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false, length = 36)
-    private UUID id;
+    private String id;
 
     @Column(name = "date_created", nullable = false, insertable = false, updatable = false)
     private LocalDate dateCreated;
