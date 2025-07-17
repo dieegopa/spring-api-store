@@ -1,5 +1,6 @@
 package com.dieegopa.store.controllers;
 
+import com.dieegopa.store.config.JwtConfig;
 import com.dieegopa.store.dtos.JwtResponse;
 import com.dieegopa.store.dtos.LoginRequest;
 import com.dieegopa.store.dtos.UserDto;
@@ -25,6 +26,7 @@ public class AuthController {
     private final JwtService jwtService;
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final JwtConfig jwtConfig;
 
     @PostMapping("/login")
     public ResponseEntity<JwtResponse> login(
@@ -46,7 +48,7 @@ public class AuthController {
         var cookie = new Cookie("refreshToken", refreshToken);
         cookie.setHttpOnly(true);
         cookie.setPath("/auth/refresh");
-        cookie.setMaxAge(7 * 24 * 60 * 60); // 7 days in seconds
+        cookie.setMaxAge(jwtConfig.getRefreshTokenExpiration());
         cookie.setSecure(true);
         response.addCookie(cookie);
 
