@@ -16,17 +16,16 @@ public class JwtService {
     @Value("${spring.jwt.secret}")
     private String secret;
 
-    public String generateToken(User user) {
-        final long tokenExpiration = 3600 * 1000; // 1 hour in milliseconds
+    public String generateAccessToken(User user) {
+        final long tokenExpiration = 5 * 60 * 1000; // 5 minutes in milliseconds
 
-        return Jwts.builder()
-                .subject(user.getId().toString())
-                .claim("email", user.getEmail())
-                .claim("name", user.getName())
-                .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis() + tokenExpiration))
-                .signWith(Keys.hmacShaKeyFor(secret.getBytes()))
-                .compact();
+        return generateAccessToken(user, tokenExpiration);
+    }
+
+    public String generateRefreshToken(User user) {
+        final long tokenExpiration = 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
+
+        return generateAccessToken(user, tokenExpiration);
     }
 
     public boolean validateToken(String token) {
@@ -49,5 +48,16 @@ public class JwtService {
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
+    }
+
+    private String generateAccessToken(User user, long tokenExpiration) {
+        return Jwts.builder()
+                .subject(user.getId().toString())
+                .claim("email", user.getEmail())
+                .claim("name", user.getName())
+                .issuedAt(new Date())
+                .expiration(new Date(System.currentTimeMillis() + tokenExpiration))
+                .signWith(Keys.hmacShaKeyFor(secret.getBytes()))
+                .compact();
     }
 }
