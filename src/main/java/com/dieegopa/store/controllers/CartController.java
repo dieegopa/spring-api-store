@@ -5,7 +5,6 @@ import com.dieegopa.store.dtos.CartDto;
 import com.dieegopa.store.dtos.CartItemDto;
 import com.dieegopa.store.dtos.UpdateCartItemRequest;
 import com.dieegopa.store.entities.Cart;
-import com.dieegopa.store.entities.CartItem;
 import com.dieegopa.store.mappers.CartMapper;
 import com.dieegopa.store.repositories.CartRepository;
 import com.dieegopa.store.repositories.ProductRepository;
@@ -51,21 +50,7 @@ public class CartController {
             return ResponseEntity.badRequest().build();
         }
 
-        var cartItem = cart.getItems().stream()
-                .filter(item -> item.getProduct().getId().equals(product.getId()))
-                .findFirst()
-                .orElse(null);
-
-        if (cartItem != null) {
-            cartItem.setQuantity(cartItem.getQuantity() + 1);
-        } else {
-            cartItem = new CartItem();
-            cartItem.setCart(cart);
-            cartItem.setProduct(product);
-            cartItem.setQuantity(1);
-            cart.getItems().add(cartItem);
-        }
-
+        var cartItem = cart.addItem(product);
         cartRepository.save(cart);
 
         var cartItemDto = cartMapper.toCartItemDto(cartItem);
@@ -99,10 +84,7 @@ public class CartController {
             );
         }
 
-        var cartItem = cart.getItems().stream()
-                .filter(item -> item.getProduct().getId().equals(productId))
-                .findFirst()
-                .orElse(null);
+        var cartItem = cart.getItem(productId);
 
         if (cartItem == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
