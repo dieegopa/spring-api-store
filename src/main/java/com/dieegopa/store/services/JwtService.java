@@ -1,5 +1,6 @@
 package com.dieegopa.store.services;
 
+import com.dieegopa.store.entities.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -15,11 +16,13 @@ public class JwtService {
     @Value("${spring.jwt.secret}")
     private String secret;
 
-    public String generateToken(String username) {
+    public String generateToken(User user) {
         final long tokenExpiration = 3600 * 1000; // 1 hour in milliseconds
 
         return Jwts.builder()
-                .subject(username)
+                .subject(user.getId().toString())
+                .claim("email", user.getEmail())
+                .claim("name", user.getName())
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + tokenExpiration))
                 .signWith(Keys.hmacShaKeyFor(secret.getBytes()))
@@ -36,12 +39,8 @@ public class JwtService {
         }
     }
 
-    public String getEmailFromToken(String token) {
-        try {
-            return getClaims(token).getSubject();
-        } catch (JwtException e) {
-            return null;
-        }
+    public Long getUserIdFromToken(String token) {
+        return Long.valueOf(getClaims(token).getSubject());
     }
 
     private Claims getClaims(String token) {
