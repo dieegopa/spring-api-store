@@ -11,6 +11,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -53,6 +54,22 @@ public class AuthController {
         response.addCookie(cookie);
 
         return ResponseEntity.ok(new JwtResponse(accessToken));
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<JwtResponse> refresh(
+            @CookieValue(value = "refreshToken") String refreshToken
+    ) {
+        if (!jwtService.validateToken(refreshToken)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        var userId = jwtService.getUserIdFromToken(refreshToken);
+        var user = userRepository.findById(userId).orElseThrow();
+        var accessToken = jwtService.generateAccessToken(user);
+
+        return ResponseEntity.ok(new JwtResponse(accessToken));
+
     }
 
     @GetMapping("/me")
