@@ -8,10 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @AllArgsConstructor
 @RestController
@@ -36,5 +33,13 @@ public class AuthController {
         var token = jwtService.generateToken(request.getEmail());
 
         return ResponseEntity.ok(new JwtResponse(token));
+    }
+
+    @PostMapping("/validate")
+    public boolean validateToken(
+            @RequestHeader("Authorization") String authHeader
+    ) {
+        var token = authHeader.replace("Bearer ", "");
+        return jwtService.validateToken(token);
     }
 }
