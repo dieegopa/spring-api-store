@@ -7,6 +7,8 @@ import com.dieegopa.store.dtos.UserDto;
 import com.dieegopa.store.mappers.UserMapper;
 import com.dieegopa.store.repositories.UserRepository;
 import com.dieegopa.store.services.JwtService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/auth")
+@Tag(name = "Authentication", description = "Operations related to user authentication")
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
@@ -30,6 +33,10 @@ public class AuthController {
     private final JwtConfig jwtConfig;
 
     @PostMapping("/login")
+    @Operation(
+            summary = "User login",
+            description = "Authenticates a user and returns a JWT access token and a refresh token."
+    )
     public ResponseEntity<JwtResponse> login(
             @Valid @RequestBody LoginRequest request,
             HttpServletResponse response
@@ -57,6 +64,10 @@ public class AuthController {
     }
 
     @PostMapping("/refresh")
+    @Operation(
+            summary = "Refresh access token",
+            description = "Generates a new access token using the provided refresh token."
+    )
     public ResponseEntity<JwtResponse> refresh(
             @CookieValue(value = "refreshToken") String refreshToken
     ) {
@@ -73,6 +84,10 @@ public class AuthController {
     }
 
     @GetMapping("/me")
+    @Operation(
+            summary = "Get current user",
+            description = "Retrieves the details of the currently authenticated user."
+    )
     public ResponseEntity<UserDto> me() {
         var authentication = SecurityContextHolder.getContext().getAuthentication();
         var userId = (Long) authentication.getPrincipal();

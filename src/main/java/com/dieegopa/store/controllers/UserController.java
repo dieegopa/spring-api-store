@@ -7,6 +7,9 @@ import com.dieegopa.store.dtos.UserDto;
 import com.dieegopa.store.entities.Role;
 import com.dieegopa.store.mappers.UserMapper;
 import com.dieegopa.store.repositories.UserRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -22,13 +25,22 @@ import java.util.Set;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/users")
+@Tag(name = "User", description = "Operations related to user management")
 public class UserController {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
 
     @GetMapping
+    @Operation(
+            summary = "Get all users",
+            description = "Retrieves a list of all registered users, sorted by the specified field."
+    )
     public Iterable<UserDto> getAllUsers(
+            @Parameter(
+                    description = "Field to sort users by. Default is 'name'.",
+                    example = "name"
+            )
             @RequestParam(required = false, defaultValue = "", name = "sort") String sort
     ) {
 
@@ -43,7 +55,18 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDto> getUser(@PathVariable Long id) {
+    @Operation(
+            summary = "Get user by ID",
+            description = "Retrieves a user by their unique ID. Returns 404 if the user does not exist."
+    )
+    public ResponseEntity<UserDto> getUser(
+            @Parameter(
+                    description = "The unique ID of the user to retrieve",
+                    required = true,
+                    example = "1"
+            )
+            @PathVariable Long id
+    ) {
         var user = userRepository.findById(id).orElse(null);
 
         if (user == null) {
@@ -55,6 +78,10 @@ public class UserController {
     }
 
     @PostMapping
+    @Operation(
+            summary = "Register a new user",
+            description = "Registers a new user in the system. The email must be unique."
+    )
     public ResponseEntity<?> registerUser(
             @Valid @RequestBody RegisterUserRequest request,
             UriComponentsBuilder uriBuilder
@@ -77,7 +104,16 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
+    @Operation(
+            summary = "Update user details",
+            description = "Updates the details of an existing user. Returns 404 if the user does not exist."
+    )
     public ResponseEntity<UserDto> updateUser(
+            @Parameter(
+                    description = "The unique ID of the user to update",
+                    required = true,
+                    example = "1"
+            )
             @PathVariable(name = "id") Long id,
             @RequestBody UpdateUserRequest request
     ) {
@@ -93,7 +129,18 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable(name = "id") Long id) {
+    @Operation(
+            summary = "Delete user",
+            description = "Deletes a user by their unique ID. Returns 204 if the user was successfully deleted, or 404 if the user does not exist."
+    )
+    public ResponseEntity<Void> deleteUser(
+            @Parameter(
+                    description = "The unique ID of the user to delete",
+                    required = true,
+                    example = "1"
+            )
+            @PathVariable(name = "id") Long id
+    ) {
         var user = userRepository.findById(id).orElse(null);
         if (user == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -104,7 +151,16 @@ public class UserController {
     }
 
     @PostMapping("/{id}/change-password")
+    @Operation(
+            summary = "Change user password",
+            description = "Changes the password of an existing user. Returns 204 if successful, or 404 if the user does not exist."
+    )
     public ResponseEntity<Void> changePassword(
+            @Parameter(
+                    description = "The unique ID of the user whose password is to be changed",
+                    required = true,
+                    example = "1"
+            )
             @PathVariable(name = "id") Long id,
             @RequestBody ChangePasswordRequest request
     ) {

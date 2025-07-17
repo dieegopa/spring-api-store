@@ -5,6 +5,9 @@ import com.dieegopa.store.entities.Product;
 import com.dieegopa.store.mappers.ProductMapper;
 import com.dieegopa.store.repositories.CategoryRepository;
 import com.dieegopa.store.repositories.ProductRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +18,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/products")
+@Tag(name = "Product", description = "Operations related to product management")
 public class ProductController {
 
     private final ProductRepository productRepository;
@@ -22,7 +26,15 @@ public class ProductController {
     private final CategoryRepository categoryRepository;
 
     @GetMapping
+    @Operation(
+            summary = "Get all products",
+            description = "Retrieves a list of all products, optionally filtered by category ID."
+    )
     public Iterable<ProductDto> getAllProducts(
+            @Parameter(
+                    description = "Category ID to filter products. If not provided or 0, all products are returned.",
+                    example = "1"
+            )
             @RequestParam(name = "categoryId", required = false, defaultValue = "0") Byte categoryId
     ) {
 
@@ -36,7 +48,18 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductDto> getProduct(@PathVariable Long id) {
+    @Operation(
+            summary = "Get product by ID",
+            description = "Retrieves a product by its unique ID. Returns 404 if the product does not exist."
+    )
+    public ResponseEntity<ProductDto> getProduct(
+            @Parameter(
+                    description = "The unique ID of the product to retrieve.",
+                    required = true,
+                    example = "1"
+            )
+            @PathVariable Long id
+    ) {
         var product = productRepository.findById(id).orElse(null);
 
         if (product == null) {
@@ -47,6 +70,10 @@ public class ProductController {
     }
 
     @PostMapping
+    @Operation(
+            summary = "Create a new product",
+            description = "Creates a new product with the provided details. The category must exist."
+    )
     public ResponseEntity<ProductDto> createProduct(
             @RequestBody ProductDto productDto,
             UriComponentsBuilder uriBuilder
@@ -68,7 +95,16 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
+    @Operation(
+            summary = "Update product details",
+            description = "Updates the details of an existing product. The category must exist."
+    )
     public ResponseEntity<ProductDto> updateProduct(
+            @Parameter(
+                    description = "The unique ID of the product to update.",
+                    required = true,
+                    example = "1"
+            )
             @PathVariable(name = "id") Long id,
             @RequestBody ProductDto productDto
     ) {
@@ -93,7 +129,18 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable(name = "id") Long id) {
+    @Operation(
+            summary = "Delete a product",
+            description = "Deletes a product by its unique ID. Returns 404 if the product does not exist."
+    )
+    public ResponseEntity<Void> deleteProduct(
+            @Parameter(
+                    description = "The unique ID of the product to delete.",
+                    required = true,
+                    example = "1"
+            )
+            @PathVariable(name = "id") Long id
+    ) {
         var product = productRepository.findById(id).orElse(null);
 
         if (product == null) {
