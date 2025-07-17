@@ -3,6 +3,7 @@ package com.dieegopa.store.controllers;
 import com.dieegopa.store.dtos.AddItemToCartRequest;
 import com.dieegopa.store.dtos.CartDto;
 import com.dieegopa.store.dtos.CartItemDto;
+import com.dieegopa.store.dtos.UpdateCartItemRequest;
 import com.dieegopa.store.entities.Cart;
 import com.dieegopa.store.entities.CartItem;
 import com.dieegopa.store.mappers.CartMapper;
@@ -13,6 +14,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @AllArgsConstructor
 @RestController
@@ -81,5 +84,35 @@ public class CartController {
         }
 
         return ResponseEntity.ok(cartMapper.toCartDto(cart));
+    }
+
+    @PutMapping("/{cartId}/items/{productId}")
+    public ResponseEntity<?> updateItem(
+            @PathVariable(value = "cartId") String cartId,
+            @PathVariable(value = "productId") Long productId,
+            @Valid @RequestBody UpdateCartItemRequest request
+    ) {
+        var cart = cartRepository.getCartWithItems(cartId).orElse(null);
+        if (cart == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    Map.of("error", "Cart not found")
+            );
+        }
+
+        var cartItem = cart.getItems().stream()
+                .filter(item -> item.getProduct().getId().equals(productId))
+                .findFirst()
+                .orElse(null);
+
+        if (cartItem == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    Map.of("error", "Product not found in cart")
+            );
+        }
+
+        cartItem.setQuantity(request.getQuantity());
+        cartRepository.save(cart);
+
+        return ResponseEntity.ok(cartMapper.toCartItemDto(cartItem));
     }
 }
