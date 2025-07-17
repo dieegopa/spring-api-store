@@ -4,6 +4,7 @@ import com.dieegopa.store.dtos.ChangePasswordRequest;
 import com.dieegopa.store.dtos.RegisterUserRequest;
 import com.dieegopa.store.dtos.UpdateUserRequest;
 import com.dieegopa.store.dtos.UserDto;
+import com.dieegopa.store.entities.Role;
 import com.dieegopa.store.mappers.UserMapper;
 import com.dieegopa.store.repositories.UserRepository;
 import jakarta.validation.Valid;
@@ -67,6 +68,7 @@ public class UserController {
 
         var user = userMapper.toEntity(request);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(Role.USER);
         userRepository.save(user);
         var userDto = userMapper.toDto(user);
         var uri = uriBuilder.path("/users/{id}").buildAndExpand(userDto.getId()).toUri();

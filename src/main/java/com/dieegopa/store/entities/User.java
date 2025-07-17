@@ -34,6 +34,10 @@ public class User {
     @Builder.Default
     private List<Address> addresses = new ArrayList<>();
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role")
+    private Role role;
+
     @ManyToMany
     @JoinTable(
             name = "wishlist",
