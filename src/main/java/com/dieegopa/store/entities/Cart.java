@@ -21,10 +21,10 @@ public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id", nullable = false, length = 36)
+    @Column(name = "id")
     private String id;
 
-    @Column(name = "date_created", nullable = false, insertable = false, updatable = false)
+    @Column(name = "date_created", insertable = false, updatable = false)
     private LocalDate dateCreated;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)

@@ -1,6 +1,7 @@
 package com.dieegopa.store.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,25 +14,30 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Entity
-@Table(name = "cart_items")
-public class CartItem {
+@Table(name = "order_items")
+public class OrderItem {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
+    @JoinColumn(name = "order_id")
+    private Order order;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
 
+    @Column(name = "unit_price")
+    private BigDecimal unitPrice;
+
     @Column(name = "quantity")
     private Integer quantity;
 
-    public BigDecimal getTotalPrice() {
-        return product.getPrice().multiply(BigDecimal.valueOf(quantity));
-    }
+    @NotNull
+    @Column(name = "total_price")
+    private BigDecimal totalPrice;
+
 }
