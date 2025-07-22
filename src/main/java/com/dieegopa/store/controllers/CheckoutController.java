@@ -4,8 +4,6 @@ import com.dieegopa.store.dtos.CheckoutRequest;
 import com.dieegopa.store.dtos.CheckoutResponse;
 import com.dieegopa.store.dtos.ErrorDto;
 import com.dieegopa.store.entities.Order;
-import com.dieegopa.store.entities.OrderItem;
-import com.dieegopa.store.entities.OrderStatus;
 import com.dieegopa.store.repositories.CartRepository;
 import com.dieegopa.store.repositories.OrderRepository;
 import com.dieegopa.store.services.AuthService;
@@ -45,21 +43,7 @@ public class CheckoutController {
             );
         }
 
-        var order = new Order();
-        order.setTotalPrice(cart.getTotalPrice());
-        order.setStatus(OrderStatus.PENDING);
-        order.setCustomer(authService.getCurrentUser());
-
-        cart.getItems().forEach(item -> {
-            var orderItem = new OrderItem();
-            orderItem.setOrder(order);
-            orderItem.setProduct(item.getProduct());
-            orderItem.setQuantity(item.getQuantity());
-            orderItem.setTotalPrice(item.getTotalPrice());
-            orderItem.setUnitPrice(item.getProduct().getPrice());
-            order.getItems().add(orderItem);
-        });
-
+        var order = Order.fromCart(cart, authService.getCurrentUser());
         orderRepository.save(order);
 
         cartService.clearCart(cart.getId());
