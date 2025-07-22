@@ -1,6 +1,7 @@
 package com.dieegopa.store.controllers;
 
 import com.dieegopa.store.dtos.ErrorDto;
+import com.dieegopa.store.exceptions.CartEmptyException;
 import com.dieegopa.store.exceptions.CartNotFoundException;
 import com.dieegopa.store.exceptions.ProductNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -49,6 +50,13 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorDto> handleUnreadableMessage() {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                 new ErrorDto("Malformed JSON request")
+        );
+    }
+
+    @ExceptionHandler({CartEmptyException.class})
+    public ResponseEntity<ErrorDto> handleCartEmptyException(CartEmptyException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ErrorDto(e.getMessage())
         );
     }
 }
