@@ -1,9 +1,6 @@
 package com.dieegopa.store.controllers;
 
-import com.dieegopa.store.dtos.ChangePasswordRequest;
-import com.dieegopa.store.dtos.RegisterUserRequest;
-import com.dieegopa.store.dtos.UpdateUserRequest;
-import com.dieegopa.store.dtos.UserDto;
+import com.dieegopa.store.dtos.*;
 import com.dieegopa.store.entities.Role;
 import com.dieegopa.store.mappers.UserMapper;
 import com.dieegopa.store.repositories.UserRepository;
@@ -19,7 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.Map;
 import java.util.Set;
 
 @RestController
@@ -89,7 +85,7 @@ public class UserController {
 
         if (userRepository.existsByEmail(request.getEmail())) {
             return ResponseEntity.badRequest().body(
-                    Map.of("email", "Email already exists")
+                    new ErrorDto("Email already exists")
             );
         }
 
