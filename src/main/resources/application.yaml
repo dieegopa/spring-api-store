@@ -13,3 +13,4 @@ spring:
     refreshTokenExpiration: 86400 # 24 hours
 stripe:
   secretKey: ${STRIPE_SECRET_KEY}
+websiteUrl: ${WEBSITE_URL}
