@@ -3,10 +3,12 @@ package com.dieegopa.store.controllers;
 import com.dieegopa.store.dtos.ErrorDto;
 import com.dieegopa.store.exceptions.CartEmptyException;
 import com.dieegopa.store.exceptions.CartNotFoundException;
+import com.dieegopa.store.exceptions.OrderNotFoundException;
 import com.dieegopa.store.exceptions.ProductNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -36,7 +38,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler({ProductNotFoundException.class})
     public ResponseEntity<ErrorDto> handleProductNotFoundException() {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+        return ResponseEntity.badRequest().body(
                 new ErrorDto("Product not found in the cart")
         );
     }
@@ -48,14 +50,30 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler({HttpMessageNotReadableException.class})
     public ResponseEntity<ErrorDto> handleUnreadableMessage() {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+        return ResponseEntity.badRequest().body(
                 new ErrorDto("Malformed JSON request")
         );
     }
 
     @ExceptionHandler({CartEmptyException.class})
     public ResponseEntity<ErrorDto> handleCartEmptyException(CartEmptyException e) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+        return ResponseEntity.badRequest().body(
+                new ErrorDto(e.getMessage())
+        );
+    }
+
+    @ExceptionHandler({OrderNotFoundException.class})
+    public ResponseEntity<ErrorDto> handleOrderNotFoundException() {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                new ErrorDto("Order not found")
+        );
+    }
+
+    @ExceptionHandler({AccessDeniedException.class})
+    public ResponseEntity<ErrorDto> handleAccessDeniedException(
+            AccessDeniedException e
+    ) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(
                 new ErrorDto(e.getMessage())
         );
     }
