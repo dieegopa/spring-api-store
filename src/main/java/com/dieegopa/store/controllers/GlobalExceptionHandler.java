@@ -1,10 +1,7 @@
 package com.dieegopa.store.controllers;
 
 import com.dieegopa.store.dtos.ErrorDto;
-import com.dieegopa.store.exceptions.CartEmptyException;
-import com.dieegopa.store.exceptions.CartNotFoundException;
-import com.dieegopa.store.exceptions.OrderNotFoundException;
-import com.dieegopa.store.exceptions.ProductNotFoundException;
+import com.dieegopa.store.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -75,6 +72,13 @@ public class GlobalExceptionHandler {
     ) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(
                 new ErrorDto(e.getMessage())
+        );
+    }
+
+    @ExceptionHandler({PaymentException.class})
+    public ResponseEntity<ErrorDto> handlePaymentException() {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                new ErrorDto("Error creating checkout session")
         );
     }
 }
