@@ -3,6 +3,8 @@ package com.dieegopa.store.auth;
 import com.dieegopa.store.users.UserDto;
 import com.dieegopa.store.users.UserMapper;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -21,6 +23,7 @@ public class AuthController {
     private final JwtConfig jwtConfig;
     private final AuthService authService;
 
+    @SecurityRequirements
     @PostMapping("/login")
     @Operation(
             summary = "User login",
@@ -44,6 +47,7 @@ public class AuthController {
         return new JwtResponse(loginResult.getAccessToken().toString());
     }
 
+    @SecurityRequirements
     @PostMapping("/refresh")
     @Operation(
             summary = "Refresh access token",

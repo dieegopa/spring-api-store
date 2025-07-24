@@ -2,6 +2,7 @@ package com.dieegopa.store.users;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -47,6 +48,7 @@ public class UserController {
         return userService.getUser(id);
     }
 
+    @SecurityRequirements
     @PostMapping
     @Operation(
             summary = "Register a new user",

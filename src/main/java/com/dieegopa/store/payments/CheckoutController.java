@@ -1,6 +1,7 @@
 package com.dieegopa.store.payments;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ public class CheckoutController {
         return checkoutService.checkout(request);
     }
 
+    @SecurityRequirements
     @PostMapping("/webhook")
     public void handleWebhook(
             @RequestHeader Map<String, String> headers,

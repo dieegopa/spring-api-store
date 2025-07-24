@@ -2,6 +2,7 @@ package com.dieegopa.store.products;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ public class ProductController {
     private final ProductMapper productMapper;
     private final CategoryRepository categoryRepository;
 
+    @SecurityRequirements
     @GetMapping
     @Operation(
             summary = "Get all products",
