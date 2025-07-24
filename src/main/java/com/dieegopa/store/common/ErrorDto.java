@@ -1,4 +1,4 @@
-package com.dieegopa.store.dtos;
+package com.dieegopa.store.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

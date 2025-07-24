@@ -1,4 +1,4 @@
-package com.dieegopa.store.controllers;
+package com.dieegopa.store.admin;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
