@@ -2,6 +2,7 @@ package com.dieegopa.store.controllers;
 
 import com.dieegopa.store.dtos.ErrorDto;
 import com.dieegopa.store.exceptions.*;
+import com.dieegopa.store.payments.PaymentException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;

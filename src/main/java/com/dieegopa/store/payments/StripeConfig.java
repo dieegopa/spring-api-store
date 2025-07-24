@@ -1,4 +1,4 @@
-package com.dieegopa.store.config;
+package com.dieegopa.store.payments;
 
 import com.stripe.Stripe;
 import jakarta.annotation.PostConstruct;

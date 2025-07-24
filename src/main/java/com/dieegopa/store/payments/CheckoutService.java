@@ -1,13 +1,12 @@
-package com.dieegopa.store.services;
+package com.dieegopa.store.payments;
 
-import com.dieegopa.store.dtos.CheckoutRequest;
-import com.dieegopa.store.dtos.CheckoutResponse;
 import com.dieegopa.store.entities.Order;
 import com.dieegopa.store.exceptions.CartEmptyException;
 import com.dieegopa.store.exceptions.CartNotFoundException;
-import com.dieegopa.store.exceptions.PaymentException;
 import com.dieegopa.store.repositories.CartRepository;
 import com.dieegopa.store.repositories.OrderRepository;
+import com.dieegopa.store.services.AuthService;
+import com.dieegopa.store.services.CartService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

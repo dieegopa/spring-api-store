@@ -1,9 +1,5 @@
-package com.dieegopa.store.controllers;
+package com.dieegopa.store.payments;
 
-import com.dieegopa.store.dtos.CheckoutRequest;
-import com.dieegopa.store.dtos.CheckoutResponse;
-import com.dieegopa.store.services.CheckoutService;
-import com.dieegopa.store.services.WebhookRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

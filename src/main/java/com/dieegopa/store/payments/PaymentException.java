@@ -1,4 +1,4 @@
-package com.dieegopa.store.exceptions;
+package com.dieegopa.store.payments;
 
 import lombok.NoArgsConstructor;
 

@@ -1,4 +1,4 @@
-package com.dieegopa.store.services;
+package com.dieegopa.store.payments;
 
 import com.dieegopa.store.entities.PaymentStatus;
 import lombok.AllArgsConstructor;
