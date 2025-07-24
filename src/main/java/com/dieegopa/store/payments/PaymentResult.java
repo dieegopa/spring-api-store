@@ -1,6 +1,6 @@
 package com.dieegopa.store.payments;
 
-import com.dieegopa.store.entities.PaymentStatus;
+import com.dieegopa.store.orders.PaymentStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

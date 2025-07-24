@@ -1,7 +1,5 @@
-package com.dieegopa.store.controllers;
+package com.dieegopa.store.orders;
 
-import com.dieegopa.store.dtos.OrderDto;
-import com.dieegopa.store.services.OrderService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;

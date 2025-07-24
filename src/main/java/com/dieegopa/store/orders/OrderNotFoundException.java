@@ -1,4 +1,4 @@
-package com.dieegopa.store.exceptions;
+package com.dieegopa.store.orders;
 
 public class OrderNotFoundException extends RuntimeException {
 }

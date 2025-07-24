@@ -1,7 +1,5 @@
-package com.dieegopa.store.mappers;
+package com.dieegopa.store.orders;
 
-import com.dieegopa.store.dtos.OrderDto;
-import com.dieegopa.store.entities.Order;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

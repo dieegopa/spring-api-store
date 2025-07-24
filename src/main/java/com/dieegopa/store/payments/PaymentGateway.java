@@ -1,6 +1,6 @@
 package com.dieegopa.store.payments;
 
-import com.dieegopa.store.entities.Order;
+import com.dieegopa.store.orders.Order;
 
 import java.util.Optional;
 

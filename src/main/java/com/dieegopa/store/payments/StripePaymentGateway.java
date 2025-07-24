@@ -1,8 +1,8 @@
 package com.dieegopa.store.payments;
 
-import com.dieegopa.store.entities.Order;
-import com.dieegopa.store.entities.OrderItem;
-import com.dieegopa.store.entities.PaymentStatus;
+import com.dieegopa.store.orders.Order;
+import com.dieegopa.store.orders.OrderItem;
+import com.dieegopa.store.orders.PaymentStatus;
 import com.stripe.exception.SignatureVerificationException;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Event;

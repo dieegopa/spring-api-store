@@ -1,4 +1,4 @@
-package com.dieegopa.store.entities;
+package com.dieegopa.store.orders;
 
 import com.dieegopa.store.carts.Cart;
 import com.dieegopa.store.users.User;

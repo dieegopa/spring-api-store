@@ -1,10 +1,6 @@
-package com.dieegopa.store.services;
+package com.dieegopa.store.orders;
 
 import com.dieegopa.store.auth.AuthService;
-import com.dieegopa.store.dtos.OrderDto;
-import com.dieegopa.store.exceptions.OrderNotFoundException;
-import com.dieegopa.store.mappers.OrderMapper;
-import com.dieegopa.store.repositories.OrderRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
