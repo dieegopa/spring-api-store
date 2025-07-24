@@ -23,6 +23,7 @@ public class UserController {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+    private final UserService userService;
 
     @GetMapping
     @Operation(
@@ -36,15 +37,7 @@ public class UserController {
             )
             @RequestParam(required = false, defaultValue = "", name = "sort") String sort
     ) {
-
-        if (!Set.of("name", "email").contains(sort)) {
-            sort = "name";
-        }
-
-        return userRepository.findAll(Sort.by(sort))
-                .stream()
-                .map(userMapper::toDto)
-                .toList();
+        return userService.getAllUsers(sort);
     }
 
     @GetMapping("/{id}")
@@ -52,7 +45,7 @@ public class UserController {
             summary = "Get user by ID",
             description = "Retrieves a user by their unique ID. Returns 404 if the user does not exist."
     )
-    public ResponseEntity<UserDto> getUser(
+    public UserDto getUser(
             @Parameter(
                     description = "The unique ID of the user to retrieve",
                     required = true,
@@ -60,14 +53,7 @@ public class UserController {
             )
             @PathVariable Long id
     ) {
-        var user = userRepository.findById(id).orElse(null);
-
-        if (user == null) {
-            // new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            return ResponseEntity.notFound().build();
-        }
-
-        return ResponseEntity.ok(userMapper.toDto(user));
+        return userService.getUser(id);
     }
 
     @PostMapping
@@ -79,20 +65,8 @@ public class UserController {
             @Valid @RequestBody RegisterUserRequest request,
             UriComponentsBuilder uriBuilder
     ) {
-
-        if (userRepository.existsByEmail(request.getEmail())) {
-            return ResponseEntity.badRequest().body(
-                    new ErrorDto("Email already exists")
-            );
-        }
-
-        var user = userMapper.toEntity(request);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole(Role.USER);
-        userRepository.save(user);
-        var userDto = userMapper.toDto(user);
+        var userDto = userService.registerUser(request);
         var uri = uriBuilder.path("/users/{id}").buildAndExpand(userDto.getId()).toUri();
-
         return ResponseEntity.created(uri).body(userDto);
     }
 
@@ -101,7 +75,7 @@ public class UserController {
             summary = "Update user details",
             description = "Updates the details of an existing user. Returns 404 if the user does not exist."
     )
-    public ResponseEntity<UserDto> updateUser(
+    public UserDto updateUser(
             @Parameter(
                     description = "The unique ID of the user to update",
                     required = true,
@@ -110,15 +84,7 @@ public class UserController {
             @PathVariable(name = "id") Long id,
             @RequestBody UpdateUserRequest request
     ) {
-        var user = userRepository.findById(id).orElse(null);
-        if (user == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-
-        userMapper.update(request, user);
-        userRepository.save(user);
-
-        return ResponseEntity.ok(userMapper.toDto(user));
+        return userService.updateUser(id, request);
     }
 
     @DeleteMapping("/{id}")
@@ -126,7 +92,7 @@ public class UserController {
             summary = "Delete user",
             description = "Deletes a user by their unique ID. Returns 204 if the user was successfully deleted, or 404 if the user does not exist."
     )
-    public ResponseEntity<Void> deleteUser(
+    public void deleteUser(
             @Parameter(
                     description = "The unique ID of the user to delete",
                     required = true,
@@ -134,13 +100,7 @@ public class UserController {
             )
             @PathVariable(name = "id") Long id
     ) {
-        var user = userRepository.findById(id).orElse(null);
-        if (user == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-
-        userRepository.delete(user);
-        return ResponseEntity.noContent().build();
+        userService.deleteUser(id);
     }
 
     @PostMapping("/{id}/change-password")
@@ -148,7 +108,7 @@ public class UserController {
             summary = "Change user password",
             description = "Changes the password of an existing user. Returns 204 if successful, or 404 if the user does not exist."
     )
-    public ResponseEntity<Void> changePassword(
+    public void changePassword(
             @Parameter(
                     description = "The unique ID of the user whose password is to be changed",
                     required = true,
@@ -157,19 +117,7 @@ public class UserController {
             @PathVariable(name = "id") Long id,
             @RequestBody ChangePasswordRequest request
     ) {
-        var user = userRepository.findById(id).orElse(null);
-        if (user == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        if (!user.getPassword().equals(request.getOldPassword())) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-
-        user.setPassword(request.getNewPassword());
-        userRepository.save(user);
-
-        return ResponseEntity.noContent().build();
+        userService.changePassword(id, request);
     }
 
 }

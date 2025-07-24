@@ -6,6 +6,8 @@ import com.dieegopa.store.dtos.ErrorDto;
 import com.dieegopa.store.orders.OrderNotFoundException;
 import com.dieegopa.store.payments.PaymentException;
 import com.dieegopa.store.products.ProductNotFoundException;
+import com.dieegopa.store.users.DuplicateUserException;
+import com.dieegopa.store.users.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -84,5 +86,17 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                 new ErrorDto("Error creating checkout session: " + e.getMessage())
         );
+    }
+
+    @ExceptionHandler(DuplicateUserException.class)
+    public ResponseEntity<ErrorDto> handleDuplicateUser() {
+        return ResponseEntity.badRequest().body(
+                new ErrorDto("User with this email already exists")
+        );
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<Void> handleUserNotFound() {
+        return ResponseEntity.notFound().build();
     }
 }
