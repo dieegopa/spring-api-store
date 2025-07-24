@@ -1,6 +1,6 @@
 package com.dieegopa.store.services;
 
-import com.dieegopa.store.entities.Role;
+import com.dieegopa.store.users.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import lombok.Getter;

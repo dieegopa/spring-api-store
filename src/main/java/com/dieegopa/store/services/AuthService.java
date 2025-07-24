@@ -1,7 +1,7 @@
 package com.dieegopa.store.services;
 
-import com.dieegopa.store.entities.User;
-import com.dieegopa.store.repositories.UserRepository;
+import com.dieegopa.store.users.User;
+import com.dieegopa.store.users.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,5 @@
-package com.dieegopa.store.repositories;
+package com.dieegopa.store.users;
 
-import com.dieegopa.store.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

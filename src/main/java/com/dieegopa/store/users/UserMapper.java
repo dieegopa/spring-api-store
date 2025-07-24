@@ -1,9 +1,5 @@
-package com.dieegopa.store.mappers;
+package com.dieegopa.store.users;
 
-import com.dieegopa.store.dtos.RegisterUserRequest;
-import com.dieegopa.store.dtos.UpdateUserRequest;
-import com.dieegopa.store.dtos.UserDto;
-import com.dieegopa.store.entities.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 

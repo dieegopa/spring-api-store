@@ -1,7 +1,7 @@
 package com.dieegopa.store.repositories;
 
 import com.dieegopa.store.entities.Order;
-import com.dieegopa.store.entities.User;
+import com.dieegopa.store.users.User;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

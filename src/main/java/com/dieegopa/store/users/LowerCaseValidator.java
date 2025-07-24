@@ -1,4 +1,4 @@
-package com.dieegopa.store.validation;
+package com.dieegopa.store.users;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

@@ -1,6 +1,5 @@
-package com.dieegopa.store.services;
+package com.dieegopa.store.users;
 
-import com.dieegopa.store.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

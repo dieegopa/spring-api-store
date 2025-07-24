@@ -1,6 +1,5 @@
-package com.dieegopa.store.dtos;
+package com.dieegopa.store.users;
 
-import com.dieegopa.store.validation.LowerCase;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

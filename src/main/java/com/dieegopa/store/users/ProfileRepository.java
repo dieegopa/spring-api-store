@@ -1,6 +1,5 @@
-package com.dieegopa.store.repositories;
+package com.dieegopa.store.users;
 
-import com.dieegopa.store.entities.Profile;
 import org.springframework.data.repository.CrudRepository;
 
 public interface ProfileRepository extends CrudRepository<Profile, Long> {

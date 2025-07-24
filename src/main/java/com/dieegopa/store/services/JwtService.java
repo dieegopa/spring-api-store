@@ -1,7 +1,7 @@
 package com.dieegopa.store.services;
 
 import com.dieegopa.store.config.JwtConfig;
-import com.dieegopa.store.entities.User;
+import com.dieegopa.store.users.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
