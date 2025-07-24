@@ -76,9 +76,9 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler({PaymentException.class})
-    public ResponseEntity<ErrorDto> handlePaymentException() {
+    public ResponseEntity<ErrorDto> handlePaymentException(PaymentException e) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                new ErrorDto("Error creating checkout session")
+                new ErrorDto("Error creating checkout session: " + e.getMessage())
         );
     }
 }

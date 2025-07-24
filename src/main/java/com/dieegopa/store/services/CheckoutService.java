@@ -48,4 +48,14 @@ public class CheckoutService {
         }
     }
 
+    public void handleWebhookEvent(WebhookRequest webhookRequest) {
+        paymentGateway
+                .parseWebhookRequest(webhookRequest)
+                .ifPresent(paymentResult -> {
+                    var order = orderRepository.findById(paymentResult.getOrderId()).orElseThrow();
+                    order.setStatus(paymentResult.getPaymentStatus());
+                    orderRepository.save(order);
+                });
+    }
+
 }
