@@ -1,4 +1,4 @@
-package com.dieegopa.store.services;
+package com.dieegopa.store.auth;
 
 import com.dieegopa.store.users.Role;
 import io.jsonwebtoken.Claims;

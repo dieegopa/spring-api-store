@@ -1,4 +1,4 @@
-package com.dieegopa.store.config;
+package com.dieegopa.store.auth;
 
 import io.jsonwebtoken.security.Keys;
 import lombok.Data;

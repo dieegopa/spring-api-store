@@ -1,4 +1,4 @@
-package com.dieegopa.store.dtos;
+package com.dieegopa.store.auth;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

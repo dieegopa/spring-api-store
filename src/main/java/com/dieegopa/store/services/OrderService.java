@@ -1,5 +1,6 @@
 package com.dieegopa.store.services;
 
+import com.dieegopa.store.auth.AuthService;
 import com.dieegopa.store.dtos.OrderDto;
 import com.dieegopa.store.exceptions.OrderNotFoundException;
 import com.dieegopa.store.mappers.OrderMapper;

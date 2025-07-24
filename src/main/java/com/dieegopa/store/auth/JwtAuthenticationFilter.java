@@ -1,6 +1,5 @@
-package com.dieegopa.store.filters;
+package com.dieegopa.store.auth;
 
-import com.dieegopa.store.services.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

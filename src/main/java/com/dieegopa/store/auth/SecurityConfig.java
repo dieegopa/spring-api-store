@@ -1,7 +1,6 @@
-package com.dieegopa.store.config;
+package com.dieegopa.store.auth;
 
 import com.dieegopa.store.users.Role;
-import com.dieegopa.store.filters.JwtAuthenticationFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

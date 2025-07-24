@@ -1,12 +1,8 @@
-package com.dieegopa.store.controllers;
+package com.dieegopa.store.auth;
 
-import com.dieegopa.store.config.JwtConfig;
-import com.dieegopa.store.dtos.JwtResponse;
-import com.dieegopa.store.dtos.LoginRequest;
 import com.dieegopa.store.users.UserDto;
 import com.dieegopa.store.users.UserMapper;
 import com.dieegopa.store.users.UserRepository;
-import com.dieegopa.store.services.JwtService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.Cookie;

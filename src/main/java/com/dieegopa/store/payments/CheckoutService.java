@@ -5,7 +5,7 @@ import com.dieegopa.store.exceptions.CartEmptyException;
 import com.dieegopa.store.exceptions.CartNotFoundException;
 import com.dieegopa.store.repositories.CartRepository;
 import com.dieegopa.store.repositories.OrderRepository;
-import com.dieegopa.store.services.AuthService;
+import com.dieegopa.store.auth.AuthService;
 import com.dieegopa.store.services.CartService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
