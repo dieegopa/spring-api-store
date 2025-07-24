@@ -1,7 +1,5 @@
-package com.dieegopa.store.mappers;
+package com.dieegopa.store.products;
 
-import com.dieegopa.store.dtos.ProductDto;
-import com.dieegopa.store.entities.Product;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

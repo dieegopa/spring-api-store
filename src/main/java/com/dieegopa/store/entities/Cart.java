@@ -1,5 +1,6 @@
 package com.dieegopa.store.entities;
 
+import com.dieegopa.store.products.Product;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

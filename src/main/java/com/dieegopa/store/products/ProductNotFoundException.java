@@ -1,4 +1,4 @@
-package com.dieegopa.store.exceptions;
+package com.dieegopa.store.products;
 
 public class ProductNotFoundException extends RuntimeException {
 }

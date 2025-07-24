@@ -1,10 +1,5 @@
-package com.dieegopa.store.controllers;
+package com.dieegopa.store.products;
 
-import com.dieegopa.store.dtos.ProductDto;
-import com.dieegopa.store.entities.Product;
-import com.dieegopa.store.mappers.ProductMapper;
-import com.dieegopa.store.repositories.CategoryRepository;
-import com.dieegopa.store.repositories.ProductRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;

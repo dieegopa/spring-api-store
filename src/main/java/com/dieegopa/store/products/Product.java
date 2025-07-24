@@ -1,4 +1,4 @@
-package com.dieegopa.store.entities;
+package com.dieegopa.store.products;
 
 import jakarta.persistence.*;
 import lombok.*;

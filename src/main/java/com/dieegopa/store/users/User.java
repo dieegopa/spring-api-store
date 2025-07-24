@@ -1,6 +1,6 @@
 package com.dieegopa.store.users;
 
-import com.dieegopa.store.entities.Product;
+import com.dieegopa.store.products.Product;
 import jakarta.persistence.*;
 import lombok.*;
 
