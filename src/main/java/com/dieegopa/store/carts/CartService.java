@@ -1,12 +1,6 @@
-package com.dieegopa.store.services;
+package com.dieegopa.store.carts;
 
-import com.dieegopa.store.dtos.CartDto;
-import com.dieegopa.store.dtos.CartItemDto;
-import com.dieegopa.store.entities.Cart;
-import com.dieegopa.store.exceptions.CartNotFoundException;
 import com.dieegopa.store.products.ProductNotFoundException;
-import com.dieegopa.store.mappers.CartMapper;
-import com.dieegopa.store.repositories.CartRepository;
 import com.dieegopa.store.products.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

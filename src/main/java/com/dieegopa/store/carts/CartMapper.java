@@ -1,9 +1,5 @@
-package com.dieegopa.store.mappers;
+package com.dieegopa.store.carts;
 
-import com.dieegopa.store.dtos.CartDto;
-import com.dieegopa.store.dtos.CartItemDto;
-import com.dieegopa.store.entities.Cart;
-import com.dieegopa.store.entities.CartItem;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

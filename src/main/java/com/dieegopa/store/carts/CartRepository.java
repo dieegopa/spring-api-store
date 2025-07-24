@@ -1,6 +1,5 @@
-package com.dieegopa.store.repositories;
+package com.dieegopa.store.carts;
 
-import com.dieegopa.store.entities.Cart;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

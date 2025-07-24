@@ -1,4 +1,4 @@
-package com.dieegopa.store.dtos;
+package com.dieegopa.store.carts;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;

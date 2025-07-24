@@ -1,5 +1,7 @@
 package com.dieegopa.store.controllers;
 
+import com.dieegopa.store.carts.CartEmptyException;
+import com.dieegopa.store.carts.CartNotFoundException;
 import com.dieegopa.store.dtos.ErrorDto;
 import com.dieegopa.store.exceptions.*;
 import com.dieegopa.store.payments.PaymentException;

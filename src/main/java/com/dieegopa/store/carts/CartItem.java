@@ -1,4 +1,4 @@
-package com.dieegopa.store.entities;
+package com.dieegopa.store.carts;
 
 import com.dieegopa.store.products.Product;
 import jakarta.persistence.*;

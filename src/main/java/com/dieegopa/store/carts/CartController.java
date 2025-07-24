@@ -1,10 +1,5 @@
-package com.dieegopa.store.controllers;
+package com.dieegopa.store.carts;
 
-import com.dieegopa.store.dtos.AddItemToCartRequest;
-import com.dieegopa.store.dtos.CartDto;
-import com.dieegopa.store.dtos.CartItemDto;
-import com.dieegopa.store.dtos.UpdateCartItemRequest;
-import com.dieegopa.store.services.CartService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
