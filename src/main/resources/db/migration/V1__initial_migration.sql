@@ -6,14 +6,14 @@ CREATE TABLE addresses
     state   VARCHAR(255) NOT NULL,
     zip     VARCHAR(255) NOT NULL,
     user_id BIGINT       NOT NULL,
-    CONSTRAINT `PRIMARY` PRIMARY KEY (id)
+    CONSTRAINT `PRIMARY_ADDRESSES` PRIMARY KEY (id)
 );
 
 CREATE TABLE categories
 (
     id   TINYINT AUTO_INCREMENT NOT NULL,
     name VARCHAR(255) NOT NULL,
-    CONSTRAINT `PRIMARY` PRIMARY KEY (id)
+    CONSTRAINT `PRIMARY_CATEGORIES` PRIMARY KEY (id)
 );
 
 CREATE TABLE products
@@ -23,7 +23,7 @@ CREATE TABLE products
     price         DECIMAL(10, 2) NOT NULL,
     `description` LONGTEXT       NOT NULL,
     category_id   TINYINT NULL,
-    CONSTRAINT `PRIMARY` PRIMARY KEY (id)
+    CONSTRAINT `PRIMARY_PRODUCTS` PRIMARY KEY (id)
 );
 
 CREATE TABLE profiles
@@ -33,7 +33,7 @@ CREATE TABLE profiles
     phone_number   VARCHAR(15) NULL,
     date_of_birth  date NULL,
     loyalty_points INT UNSIGNED DEFAULT 0 NULL,
-    CONSTRAINT `PRIMARY` PRIMARY KEY (id)
+    CONSTRAINT `PRIMARY_PROFILES` PRIMARY KEY (id)
 );
 
 CREATE TABLE users
@@ -42,14 +42,14 @@ CREATE TABLE users
     name     VARCHAR(255) NOT NULL,
     email    VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    CONSTRAINT `PRIMARY` PRIMARY KEY (id)
+    CONSTRAINT `PRIMARY_USERS` PRIMARY KEY (id)
 );
 
 CREATE TABLE wishlist
 (
     product_id BIGINT NOT NULL,
     user_id    BIGINT NOT NULL,
-    CONSTRAINT `PRIMARY` PRIMARY KEY (product_id, user_id)
+    CONSTRAINT `PRIMARY_WISHLIST` PRIMARY KEY (product_id, user_id)
 );
 
 ALTER TABLE addresses
